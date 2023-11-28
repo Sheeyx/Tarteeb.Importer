@@ -20,7 +20,12 @@ internal class Program
 
         using (var storageBroker = new StorageBroker())
         {
-            
+            //Client persistedClient = await storageBroker.InsertClientAsync(client);
+            IQueryable<Client> dbClients = storageBroker.SellectAllClients();
+            foreach (var dbClient in dbClients)
+            {
+                Console.WriteLine(dbClient.FirstName + " " + dbClient.LastName);
+            }
         }
     }
 }

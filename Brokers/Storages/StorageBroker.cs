@@ -13,7 +13,20 @@ public class StorageBroker : EFxceptionsContext
         this.Database.EnsureCreated();
     }
 
- 
+    public async Task<Client> InsertClientAsync(Client client)
+    {
+        await this.Clients.AddAsync(client);
+        await this.SaveChangesAsync();
+        return client;
+    }
+
+    public IQueryable<Client> SellectAllClients()
+    {
+        return this.Clients.AsQueryable();
+    }
+
+    public async Task<Client> SelectClientByIdAsync(Guid clientId)=>
+        await this.Clients.FindAsync(clientId);
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
